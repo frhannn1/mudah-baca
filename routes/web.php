@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BukuController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,4 +22,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::middleware('role:admin')->get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+
+Route::middleware('role:admin')->get('/dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
+
+Route::middleware('role:admin')->resource('dashboard', BukuController::class);
+Route::middleware('role:admin')->post('/store', [BukuController::class,'store']);
+
