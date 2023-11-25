@@ -24,9 +24,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('role:admin')->get('/dashboard', function () {
-    return view('admin.dashboard');
+    return redirect('daftar-buku');
 })->name('dashboard');
 
-Route::middleware('role:admin')->resource('dashboard', BukuController::class);
+
+Route::middleware('role:admin')->resource('daftar-buku', BukuController::class);
 Route::middleware('role:admin')->post('/store', [BukuController::class,'store']);
+Route::middleware('role:admin')->get('/{id}/edit' , [BukuController::class,'edit']);
+Route::middleware('role:admin')->put('/{id}' , [BukuController::class,'update']);
+Route::middleware('role:admin')->get('/{id}/delete' , [BukuController::class,'destroy']);
 

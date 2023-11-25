@@ -12,12 +12,12 @@ class BukuController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     // Display a list of books
     public function index()
     {
         $data_buku = Buku::all();
-        return view('admin.dashboard',compact('data_buku'));
+        return view('admin.daftar-buku',compact('data_buku'));
 
     }
     public function create(){
@@ -25,7 +25,21 @@ class BukuController extends Controller
     }
     public function store(Request $request){
         Buku::create($request->except(['_token','submit']));
-        return redirect('/dashboard');
+        return redirect('/daftar-buku');
+    }
+    public function edit($id){
+        $buku = Buku::find($id);
+        return view('admin.edit-buku',compact(['buku']));
+    }
+    public function update($id, Request $request){
+        $buku = Buku::find($id);
+        $buku->update($request->except(['_token','submit']));
+        return redirect('/daftar-buku');
 
+    }
+    public function destroy($id,){
+        $buku = Buku::find($id);
+        $buku->delete();
+        return redirect('/daftar-buku');
     }
 }
