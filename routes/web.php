@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\Buku;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +36,8 @@ Route::middleware('role:admin')->get('/{id}/edit' , [BukuController::class,'edit
 Route::middleware('role:admin')->put('/{id}' , [BukuController::class,'update']);
 Route::middleware('role:admin')->get('/{id}/delete' , [BukuController::class,'destroy']);
 
+Route::get('/home', function () {
+    return redirect('pinjam-buku');
+})->name('home');
+
+Route::get('/pinjam-buku', [BukuController::class, 'pinjamBuku']);

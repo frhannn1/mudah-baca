@@ -42,4 +42,25 @@ class BukuController extends Controller
         $buku->delete();
         return redirect('/daftar-buku');
     }
+    public function pinjamBuku(Request $request)
+    {
+        $categories = Buku::distinct('kategory')->pluck('kategory');
+        if($request->kategory){
+            $data_buku= Buku::where('kategory','like','%'.$request->kategory.'%')->get();
+        }
+        else if($request->judul){
+            $data_buku= Buku::where('nama','like','%'.$request->judul.'%')->get();
+        }
+        else if ($request->kategory && $request->judul) {
+            $data_buku = Buku::where('nama', 'like', '%' . $request->judul . '%')
+                ->where('kategory', 'like', '%' . $request->kategory . '%')
+                ->get();
+        }
+        else{
+            $data_buku = Buku::all();
+    
+        }
+        return view('pinjam-buku', ['categories' => $categories, 'data_buku' => $data_buku]);
+        }
+
 }

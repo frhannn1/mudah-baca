@@ -12,6 +12,13 @@
                 <button type="button" class="btn btn-success">Tambah Buku</button>
             </a>
         </div>
+        <div>
+        <form action="" method="GET" class="m-3">
+        <input type="search" cl id="judul-buku" placeholder="cari judul buku" name="nama" style="border-radius: 6px;">
+        
+        <button type="submit" style="background-color: #015C92; color:white; border-radius:4px">Search</button>
+    </form>
+        </div>
     </div>
 </div>
 <table class="table">
@@ -38,7 +45,7 @@
             <td>
                 <div class="d-flex flex-row">
                     <a href="{{ url('/daftar-buku/' . $item->id . '/edit') }}" class="p-1">
-                        <button type="button" class="btn btn-warning text-decoration-none">Edit</button>
+                        <button type="button" class="btn btn-warning text-decoration-none text-light">Edit</button>
                     </a>
                     <a href="{{ url('/'. $item->id . '/delete') }}" class="p-1" onclick="konfirmasiHapus('{{ $item->id }}')">
                         <button type="button" class="btn btn-danger">Hapus</button>
@@ -54,7 +61,7 @@
     function konfirmasiHapus(id) {
         if (confirm('Anda yakin ingin menghapus data ini?')) {
             // Redirect ke URL hapus jika konfirmasi diterima
-            window.location.href = '/daftar-buku/' + id + '/delete';
+            window.location.href = id + '/delete';
         }
         event.preventDefault();
     }
